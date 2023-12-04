@@ -23,3 +23,13 @@ function cursorUnFocus() {
   container.classList.remove("cursor-focused");
   cursor.classList.remove("focused");
 }
+
+const cursor1 = document.querySelector('.cursor');
+
+const positionElement = (e)=> {
+  const mouseY = e.clientY;
+  const mouseX = e.clientX;  
+  cursor1.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+}
+
+window.addEventListener('mousemove', positionElement)

@@ -1,3 +1,7 @@
+*{
+    cursor: none;
+}
+
 :root{
     --primary: aquamarine;
     --secondary: mediumpurple;
@@ -11,9 +15,21 @@ body {
     overflow: hidden; 
     font-family: 'matter-400';
     scroll-behavior: smooth;
-    cursor: default;
+    cursor: none;
 }
-  
+
+.cursor{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    filter: blur(5px);
+    background-color: var(--secondary);
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+    border: var(--primary) 3px solid;
+}
+
 @keyframes rotate {
     from {
         rotate: 0deg;
@@ -198,8 +214,13 @@ body {
     z-index: 5;
     transition: 0.4s ease;
 }
+
 .tab-right-nav.opened {
     padding: 5px 23px;
+}
+
+.tab-right-nav.opened:hover {
+    color: var(--secondary);
 }
 
 .tab-right-nav:hover{
@@ -223,6 +244,14 @@ body {
 .tab-right-nav:hover::before{
     height: 100%;
     background-color: var(--secondary);
+}
+
+.tab-right-nav.opened::before{
+    background-color: var(--secondary);
+}
+
+.tab-right-nav.opened:hover::before{
+    background-color: var(--primary);
 }
 
 .navlist {
