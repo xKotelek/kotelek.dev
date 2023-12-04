@@ -7,30 +7,32 @@
     <link rel="stylesheet" href="./assets/css/index.css">
     <link rel="stylesheet" href="./assets/css/font.css">
     <link rel="stylesheet" href="./assets/css/scroll.css">
+    <link rel="stylesheet" href="./assets/css/loader.css">
 </head>
 <body>
-    <div id="cursor"></div>
-    <div class="header">
+    <div id="cursor" class="hidden"></div>
+    <div class="header hidden">
         <a class="logo-tab-left">kotelek.dev</a>
-        <a class="tab-right-nav active" onclick="toggleNavbar();" data-nav-opened="false"><i class="fa-solid fa-bars"></i></a>
+        <a class="tab-right-nav active" onclick="toggleNavbar();" data-nav-opened="false" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();"><i class="fa-solid fa-bars"></i></a>
         <div class="navlist hidden" id="navbar">
-            <a class="tab-right" onclick="navhref('#socials');">Socials</a>
-            <a class="tab-right" onclick="navhref('#skills');">Skills</a>
-            <a class="tab-right" onclick="navhref('#projects');">Projects</a>
-            <a class="tab-right" onclick="navhref('#home');">Home</a>
+            <a class="tab-right" onclick="navhref('/kittyauth');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Kittyauth</a>
+            <a class="tab-right" onclick="navhref('#socials');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Socials</a>
+            <a class="tab-right" onclick="navhref('#skills');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Skills</a>
+            <a class="tab-right" onclick="navhref('#projects');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Projects</a>
+            <a class="tab-right" onclick="navhref('#home');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Home</a>
         </div>
     </div>
-    <div class="container">
+    <div class="container hidden">
         <!-- Home Page -->
         <div class="page-1" id="home">
             <center>
             <div class="page-title-inner">
                 <h1>xKotelek</h1>
                 <h3>A teenage programmer</h3>
-                <a class="skills-btn" href="#skills">Skills</a>
+                <a class="skills-btn" href="#skills" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Skills</a>
             </div>
             </center>
-            <a class="scroll-arrow" href="#projects">
+            <a class="scroll-arrow" href="#projects" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
                 <i class="fa-solid fa-arrow-down"></i>
             </a>
         </div>
@@ -40,20 +42,18 @@
             <center>
                 <div class="page-title-inner">
                     <h1>Projects</h1>
-                    <div class="projects">
+                    <div class="projects" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
                         <div class="project">
-                            <div class="project-border"></div>
-                            <div class="project-content">
-                                <a href="https://mbio.kotelek.dev/" target="_blank">mbio</a>
-                                <p>Custom user profile/bio website!</p>
-                            </div>
+                            <a href="https://mbio.kotelek.dev/" target="_blank">mbio</a>
+                            <p>Custom user profile/bio website</p>
                         </div><br>
                         <div class="project">
-                            <div class="project-border"></div>
-                            <div class="project-content">
-                                <a href="https://catbot.kotelek.dev/" target="_blank">catbot</a>
-                                <p>My own discord bot with simple features</p>
-                            </div>
+                            <a href="https://catbot.kotelek.dev/" target="_blank">catbot</a>
+                            <p>My own discord bot with simple features</p>
+                        </div><br>
+                        <div class="project">
+                            <a href="https://kotelek.dev/kittyauth" target="_blank">Kittyauth</a>
+                            <p>An easy-to-use login & register system</p>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
             <center>
                 <div class="page-title-inner">
                     <h1>Skills</h1>
-                    <h3>
+                    <h3 onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
                         <i class="skill fa-brands fa-python"></i>
                         <i class="skill fa-brands fa-html5"></i>
                         <i class="skill fa-brands fa-css3-alt"></i>
@@ -82,7 +82,7 @@
             <center>
                 <div class="page-title-inner">
                     <h1>Socials</h1>
-                    <h3>
+                    <h3 onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
                         <a href="https://discord.com/users/803159847641284640" target="_blank"><i class="skill fa-brands fa-discord"></i></a>
                         <a href="https://youtube.com/@xKotelek" target="_blank"><i class="skill fa-brands fa-youtube"></i></a>
                         <a href="https://tiktok.com/@xkotelek.tiktok" target="_blank"><i class="skill fa-brands fa-tiktok"></i></a>
@@ -104,9 +104,10 @@
             </center>
         </div>
     </div>
+    <div class="load"><span class="loader"></span></div>
     <script src="./assets/js/cursor.js"></script>
     <script src="./assets/js/navbar.js"></script>
-    <script src="./assets/js/project.js"></script>
+    <script src="./assets/js/loader.js"></script>
     <script src="https://kit.fontawesome.com/681f16d40f.js" crossorigin="anonymous"></script>
 </body>
 </html>
