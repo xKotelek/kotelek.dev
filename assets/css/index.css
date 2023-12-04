@@ -1,0 +1,337 @@
+:root{
+    --primary: aquamarine;
+    --secondary: mediumpurple;
+}
+
+body {
+    background-color: black;
+    height: 100vh;
+    margin: 0rem;
+    color: white;
+    overflow: hidden; 
+    font-family: 'matter-400';
+    scroll-behavior: smooth;
+    cursor: default;
+}
+  
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    
+    50% {
+        scale: 1 1.5;
+    }
+    
+    to {
+        rotate: 360deg;
+    }
+}
+  
+#cursor {
+    background-color: white;
+    height: 30vmax;
+    aspect-ratio: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    animation: rotate 20s infinite;
+    opacity: 0.8;
+  }
+  
+.container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    overflow-y: scroll;
+    z-index: 2;
+    backdrop-filter: blur(12vmax);
+    scroll-behavior: smooth;
+}
+
+.logo-tab-left, .tab-right {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    margin-left: 25px;
+    margin-top: 20px;
+    transition: .5s;
+    float: left;
+    text-decoration: none;
+    position: relative;
+}
+.logo-tab-left:hover, .tab-right:hover, .tab-right.active {
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+@keyframes an-tab-right{
+    0%{
+        width: 0;
+        left: 50%;
+    }
+    100%{
+        width: 100%;
+        left: 0%;
+    }
+}
+
+@keyframes an-tab-right-reversed{
+    100%{
+        width: 0;
+        left: 50%;
+    }
+    0%{
+        width: 100%;
+        left: 0%;
+    }
+}
+
+.tab-right {
+    float: right;
+    /*tu coś było nwm co*/
+}
+
+.tab-right::before {
+    background-color: var(--secondary);
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    content: "";
+}
+
+.tab-right:hover::before {
+    width: 100%;
+    left: 0%;
+    animation: an-tab-right 0.4s both;
+}
+
+.tab-right:not(:hover)::before {
+    width: 0;
+    left: 50%;
+    animation: an-tab-right-reversed 0.2s both;
+}
+
+.header {
+    overflow: hidden;
+    margin-right: 20px;
+    position: absolute;
+    width: 100%;
+    z-index: 99;
+}
+
+.page-title-inner h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 64px;
+}
+.page-title-inner h3 {
+    font-size: 28px;
+}
+
+.skills-btn {
+    border: 2px solid var(--secondary);
+    padding: 5px 20px;
+    text-decoration: none;
+    font-size: 32px;
+    color: white;
+    transition: .5s;
+    border-radius: 50px;
+    background: linear-gradient(to right, transparent, transparent);
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.skills-btn:hover {
+    color: var(--primary);
+}
+
+.skills-btn::before{
+    top: 0;
+    left: 0;
+    margin: 0;
+    content: "";
+    position: absolute;
+    background-color: var(--primary);
+    height: 0%;
+    width: 100%;
+    transition: 0.4s ease;
+    z-index: -1;
+}
+
+.skills-btn:hover::before{
+    height: 100%;
+    background-color: var(--secondary);
+}
+
+.tab-right-nav {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    margin-left: 10px;
+    transition: .5s;
+    float: right;
+    text-decoration: none;
+    margin-right: 20px;
+    border-radius: 50%;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border: 1px solid var(--secondary);
+    background: linear-gradient(to top, transparent, transparent);
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+    transition: 0.4s ease;
+}
+.tab-right-nav.opened {
+    padding: 5px 23px;
+}
+
+.tab-right-nav:hover{
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.tab-right-nav::before{
+    top: 0;
+    left: 0;
+    margin: 0;
+    content: "";
+    position: absolute;
+    background-color: var(--primary);
+    height: 0%;
+    width: 100%;
+    transition: 0.4s ease;
+    z-index: -1;
+}
+
+.tab-right-nav:hover::before{
+    height: 100%;
+    background-color: var(--secondary);
+}
+
+.navlist {
+    position: relative;
+    left: 0;
+    opacity: 1;
+    transition: 0.5s;
+}
+.navlist.hidden {
+    z-index: 3;
+    position: relative;
+    left: 700px;
+    opacity: 0;
+    transition: 0.5s;
+    pointer-events: none;
+}
+ 
+i.skill {
+   transition: .5s; 
+   color: var(--secondary);
+   font-size: 3rem;
+}
+i.skill:hover {
+    color: var(--primary);
+}
+
+.page-1 {
+    margin-top: -50px;
+}
+.page-1, .page-2, .page-3, .page-4 {
+    height: 100%;
+}
+.page-1 .page-title-inner {
+    position: relative;
+    top: 325px;
+}
+.page-3 .page-title-inner, .page-4 .page-title-inner {
+    position: relative;
+    top: 325px;
+}
+.page-2 .page-title-inner {
+    position: relative;
+    top: 250px;
+}
+
+.scroll-arrow {
+    padding: 100px 111px;
+    border: 5px solid var(--secondary);
+    background: transparent;
+    border-radius: 50%;
+    font-size: 64px;
+    color: var(--secondary);
+    position: absolute;
+    margin-top: 22.5%;
+    margin-left: 2%;
+    opacity: 1;
+    transition: .5s;
+}
+.scroll-arrow:hover {
+    background: var(--secondary);
+    color: white; 
+    padding: 50px 61px;
+    margin-top: 27.5%;
+}
+
+.project {
+    background: #00000050;
+    width: 20%;
+    padding: 1px 1px;
+    border-radius: 30px;
+    position: relative;
+}
+.project a {
+    color: white;
+    transition: .5s;
+    text-decoration: underline white;
+    font-size: 28px
+}
+.project a:hover {
+    color: var(--secondary);
+    text-decoration: underline var(--secondary);
+}
+.project p {
+    font-size: 22px;
+}
+
+.project::before, .project > .project-border {
+    border-radius: inherit;
+    content: "";
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 500ms;
+}
+.project::before {
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+    z-index: 3;
+}
+.project > .project-border {
+    background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.3), transparent 40%);
+    z-index: 1;
+}
+
+.projects:hover > .project > .project-border {
+    opacity: 1;
+}
+
+.project:hover::before {
+    opacity: 1;
+}
+.project > .project-content {
+    background-color: #00000050;
+    border-radius: inherit;
+    margin: 1px;
+    position: relative;
+    padding: 10px 1px;
+    z-index: 2;
+}

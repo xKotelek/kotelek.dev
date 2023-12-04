@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Rubik:wght@400;500;700;900&display=swap');
+@font-face {
+    font-family: 'matter-400';
+    font-weight: 400;
+    font-style: normal;
+    src: url('../font/matter-400.woff2');
+} 
+@font-face {
+    font-family: 'matter-500';
+    font-weight: 500;
+    font-style: normal;
+    src: url('../font/matter-500.woff2');
+}  
+@font-face {
+    font-family: 'matter-600';
+    font-weight: 600;
+    font-style: normal;
+    src: url('../font/matter-600.woff2');
+}  

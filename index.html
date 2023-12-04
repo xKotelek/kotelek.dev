@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kotelek.dev</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/font.css">
+    <link rel="stylesheet" href="./assets/css/scroll.css">
+</head>
+<body>
+    <div id="cursor"></div>
+    <div class="header">
+        <a class="logo-tab-left">kotelek.dev</a>
+        <a class="tab-right-nav active" onclick="toggleNavbar();" data-nav-opened="false"><i class="fa-solid fa-bars"></i></a>
+        <div class="navlist hidden" id="navbar">
+            <a class="tab-right" onclick="navhref('#socials');">Socials</a>
+            <a class="tab-right" onclick="navhref('#skills');">Skills</a>
+            <a class="tab-right" onclick="navhref('#projects');">Projects</a>
+            <a class="tab-right" onclick="navhref('#home');">Home</a>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Home Page -->
+        <div class="page-1" id="home">
+            <center>
+            <div class="page-title-inner">
+                <h1>xKotelek</h1>
+                <h3>A teenage programmer</h3>
+                <a class="skills-btn" href="#skills">Skills</a>
+            </div>
+            </center>
+            <a class="scroll-arrow" href="#projects">
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+
+        <!-- Projects Page -->
+        <div class="page-2" id="projects">
+            <center>
+                <div class="page-title-inner">
+                    <h1>Projects</h1>
+                    <div class="projects">
+                        <div class="project">
+                            <div class="project-border"></div>
+                            <div class="project-content">
+                                <a href="https://mbio.kotelek.dev/" target="_blank">mbio</a>
+                                <p>Custom user profile/bio website!</p>
+                            </div>
+                        </div><br>
+                        <div class="project">
+                            <div class="project-border"></div>
+                            <div class="project-content">
+                                <a href="https://catbot.kotelek.dev/" target="_blank">catbot</a>
+                                <p>My own discord bot with simple features</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+
+        <!-- Skills Page -->
+        <div class="page-3" id="skills">
+            <center>
+                <div class="page-title-inner">
+                    <h1>Skills</h1>
+                    <h3>
+                        <i class="skill fa-brands fa-python"></i>
+                        <i class="skill fa-brands fa-html5"></i>
+                        <i class="skill fa-brands fa-css3-alt"></i>
+                        <i class="skill fa-brands fa-js"></i>
+                        <i class="skill fa-brands fa-php"></i>
+                        <i class="skill fa-brands fa-java"></i>
+                    </h3>
+                </div>
+            </center>
+        </div>
+
+        <!-- Socials Page -->
+        <div class="page-4" id="socials">
+            <center>
+                <div class="page-title-inner">
+                    <h1>Socials</h1>
+                    <h3>
+                        <a href="https://discord.com/users/803159847641284640" target="_blank"><i class="skill fa-brands fa-discord"></i></a>
+                        <a href="https://youtube.com/@xKotelek" target="_blank"><i class="skill fa-brands fa-youtube"></i></a>
+                        <a href="https://tiktok.com/@xkotelek.tiktok" target="_blank"><i class="skill fa-brands fa-tiktok"></i></a>
+                        <a href="https://github.com/xKotelek" target="_blank"><i class="skill fa-brands fa-github"></i></a>
+                    </h3>
+                </div>
+            </center>
+        </div>
+
+        <!-- Footer (Last Page) -->
+        <div class="page-5">
+            <center>
+                <div class="page-title-inner">
+                    <h1>kotelek.dev</h1>
+                    <h3>
+                        &copy; 2023 xKotelek
+                    </h3>
+                </div>
+            </center>
+        </div>
+    </div>
+    <script src="./assets/js/cursor.js"></script>
+    <script src="./assets/js/navbar.js"></script>
+    <script src="./assets/js/project.js"></script>
+    <script src="https://kit.fontawesome.com/681f16d40f.js" crossorigin="anonymous"></script>
+</body>
+</html>
