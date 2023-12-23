@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kotelek.dev</title>
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/font.css">
+    <link rel="stylesheet" href="../assets/css/scroll.css">
+    <link rel="stylesheet" href="../assets/css/loader.css">
+    <link rel="icon" href="../assets/img/memoji.png">
+    <div class="cursor"></div>
+</head>
+<body>
+    <div id="cursor" class="hidden"></div>
+    <div class="header hidden">
+        <a class="logo-tab-left">kotelek.dev</a>
+        <a class="tab-right-nav active" onclick="toggleNavbar();" data-nav-opened="false" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();"><i class="fa-solid fa-bars"></i></a>
+        <div class="navlist hidden" id="navbar">
+            <a class="tab-right active" onclick="navhref('#');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Kittyauth</a>
+            <a class="tab-right" onclick="navhref('../#home');" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Home</a>
+        </div>
+    </div>
+    <div class="container hidden">
+        <!-- Home Page -->
+        <div class="page-1" id="home">
+            <center>
+            <div class="page-title-inner">
+                <h1>Kittyauth</h1>
+                <h3>Public website authorization service</h3>
+                <a class="skills-btn" href="#projects" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">Projects</a>
+            </div>
+            </center>
+            <a class="scroll-arrow" href="#about" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+        
+        <!-- Info Page -->
+        <div class="page-3" id="about">
+            <center>
+                <div class="page-title-inner">
+                    <h1>About</h1>
+                    <h3 onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
+                        Kittyauth is one of my side projects.<br>
+                        It's public so you can use it anywhere you want.<br>
+                        If you want to use Kittyauth just go to it's <a class="link" href="#tutorial">tutorial</a>,<br>
+                        and add it to your website.
+                    </h3>
+                </div>
+            </center>
+        </div>
+
+        <!-- Projects Page -->
+        <div class="page-2" id="projects">
+            <center>
+                <div class="page-title-inner">
+                    <h1>Projects</h1>
+                    <h2>Using kittyauth</h2>
+                    <div class="projects" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
+                        <div class="project">
+                            <a href="https://mckpl.kotelek.dev/" target="_blank">McKpl</a>
+                            <p>McKpl's website</p>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+
+        <div class="page-3-tut" id="tutorial">
+            <center>
+                <div class="page-title-inner">
+                    <h1>Tutorial</h1>
+                    <h2>How to use Kittyauth</h2>
+                    <div class="modal-tutorial" onmouseover="cursorFocus();" onmouseout="cursorUnFocus();">
+                        <h3>Add login button</h3>
+                        <h4>Add an <code>&lt;a href="https://kotelek.dev/kotcli/web/?login&next=https://example.com"&gt;</code> button to login</h4>
+                        <h4>The https://example.com have to listen for ?access_token GET parameter.</h4>
+                        <h4>When it receive it has to do CURL GET request to this api: https://kotelek.dev/kotcli/web/api/?get=access_token&toget=userdata</h4>
+                        <h4>with argument &access_token set to the parameter</h4>
+                        <h4>When the access_token is correct server will return this json: <code>{"user_email":"example@example.com","user_username":"example"}</code></h4>
+                        <h4>When it's incorrect server will return this: <code>{"error":true,"message":"Invalid access token"}</code></h4>
+                        <h4>To logout make simple button <code>&lt;a href="https://kotelek.dev/kotcli/web/?logmeout&next=https://example.com/?logged_out"&gt;</code></h4>
+                        <h4>When server receives ?logged_out it will set session data for example LOGGED to false and not display login-required things!</h4>
+                        <h4>More info will be anvailable on this github repo: <a class="link" href="https://github.com/xKotelek/kittyauth">click</a></h4>
+                    </div>
+                </div>
+            </center>
+        </div>
+
+        <!-- Footer (Last Page) -->
+        <div class="page-5">
+            <center>
+                <div class="page-title-inner">
+                    <h1>kotelek.dev</h1>
+                    <h3>
+                        &copy; 2023 xKotelek
+                    </h3>
+                </div>
+            </center>
+        </div>
+    </div>
+    <div class="load"><span class="loader"></span></div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5468585691880175" crossorigin="anonymous"></script>
+    <script src="../assets/js/cursor.js"></script>
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/loader.js"></script>
+    <script src="https://kit.fontawesome.com/681f16d40f.js" crossorigin="anonymous"></script>
+</body>
+</html>

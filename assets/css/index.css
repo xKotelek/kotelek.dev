@@ -15,12 +15,11 @@ body {
     overflow: hidden; 
     font-family: 'matter-400';
     scroll-behavior: smooth;
-    cursor: none;
 }
 
 .cursor{
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
     filter: blur(5px);
     background-color: var(--secondary);
@@ -28,6 +27,12 @@ body {
     z-index: 100;
     pointer-events: none;
     border: var(--primary) 3px solid;
+    transition: filter .5s;
+}
+
+.cursor.focused{
+    filter: blur(1.5px);
+    border: var(--primary) 2px solid;
 }
 
 @keyframes rotate {
@@ -91,7 +96,6 @@ body {
 }
 .logo-tab-left:hover, .tab-right:hover, .tab-right.active {
     color: var(--secondary);
-    cursor: pointer;
 }
 
 @keyframes an-tab-right{
@@ -136,6 +140,31 @@ body {
 }
 
 .tab-right:not(:hover)::before {
+    width: 0;
+    left: 50%;
+    animation: an-tab-right-reversed 0.2s both;
+}
+
+.link::before {
+    background-color: var(--secondary);
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    content: "";
+}
+
+.link{
+    position: relative;
+    text-decoration: none;
+}
+
+.link:hover::before {
+    width: 100%;
+    left: 0%;
+    animation: an-tab-right 0.4s both;
+}
+
+.link:not(:hover)::before {
     width: 0;
     left: 50%;
     animation: an-tab-right-reversed 0.2s both;
@@ -225,7 +254,6 @@ body {
 
 .tab-right-nav:hover{
     color: var(--primary);
-    cursor: pointer;
 }
 
 .tab-right-nav::before{
@@ -281,7 +309,7 @@ i.skill:hover {
 .page-1 {
     margin-top: -50px;
 }
-.page-1, .page-2, .page-3, .page-4 {
+.page-1, .page-2, .page-3, .page-4, .page-3-tut {
     height: 100%;
 }
 .page-1 .page-title-inner {
@@ -296,6 +324,10 @@ i.skill:hover {
     position: relative;
     top: 250px;
 }
+.page-3-tut .page-title-inner {
+    position: relative;
+    top: 200px;
+}
 
 .scroll-arrow {
     padding: 100px 111px;
@@ -305,16 +337,17 @@ i.skill:hover {
     font-size: 64px;
     color: var(--secondary);
     position: absolute;
-    margin-top: 22.5%;
-    margin-left: 2%;
     opacity: 1;
     transition: .5s;
+
+    top: 50%;
+    left: 2%;
+    transform: translateY(55%);
 }
+
 .scroll-arrow:hover {
     background: var(--secondary);
     color: white; 
-    padding: 50px 61px;
-    margin-top: 27.5%;
 }
 
 .project {
@@ -343,4 +376,22 @@ i.skill:hover {
     opacity: 0 !important;
     transition: all 0.5s ease;
     z-index: -99 !important;
+}
+
+.link {
+    color: var(--secondary);
+    font-family: 'Poppins', sans-serif;
+}
+
+.memoji{
+    display: flex;
+    justify-content: center;
+    margin-top: -15%;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 40%);
 }
