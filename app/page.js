@@ -36,7 +36,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-[var(--background)] text-[var(--foreground)]">
+    <div className="w-full h-screen flex justify-center items-center bg-[var(--background)] text-[var(--foreground)] overflow-hidden">
       <div className="flex flex-col md:flex-row items-center gap-16">
         <div className="font-bold">
           <div className={`${showTitle ? "opacity-100 translate-y-0 blur-none" : "opacity-0 -translate-y-12 blur-[8px]"} duration-800`}>
@@ -79,7 +79,7 @@ export default function Home() {
               width={256}
               height={256}
               alt="memoji"
-              className="rounded-full"
+              className="rounded-full scale-75 md:scale-100"
             />
           </div>
 

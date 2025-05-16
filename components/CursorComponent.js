@@ -10,7 +10,9 @@ export default function CursorComponent() {
   const glowRef = useRef(null);
 
   const isClickedRef = useRef(false);
-  const isOverProjectsGridRef = useRef(false); // <- uref zamiast stanu
+  const isOverProjectsGridRef = useRef(false);
+
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isOverSkills, setIsOverSkills] = useState(false);
   const [isOverLink, setIsOverLink] = useState(false);
   const [isOverProject, setIsOverProject] = useState(false);
@@ -22,6 +24,11 @@ export default function CursorComponent() {
   );
 
   useEffect(() => {
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(isTouch);
+
+    if (isTouch) return; // nie uruchamiaj logiki na mobilkach
+
     const onMouseMove = (e) => {
       targetPos.current = { x: e.clientX, y: e.clientY };
 
@@ -88,6 +95,8 @@ export default function CursorComponent() {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
+
+  if (isTouchDevice) return null;
 
   return (
     <>
