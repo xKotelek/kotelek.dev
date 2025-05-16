@@ -35,7 +35,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #000;
+  background-color: #ad46ff;
+  border-radius: 30px;
   color: #fff;
   padding: 1.5rem 2rem;
   font-size: 1.2rem;
@@ -44,7 +45,7 @@
   z-index: 9999;
   text-align: center;
   max-width: 90%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px #ad46ff50;
 }
 /* CENTER NOSCRIPT */
 
