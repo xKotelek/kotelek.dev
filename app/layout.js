@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <meta property="og:image:width" content="128" />
         <meta property="og:image:height" content="128" />
         <meta property="og:url" content="https://www.kotelek.dev" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta property="og:image:alt" name="twitter:image:alt" content="There should be logo"/>
 
         <link rel="icon" href="/favicon.ico" />
