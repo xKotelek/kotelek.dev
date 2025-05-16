@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
         <div className="select-none w-full h-screen absolute left-0 top-0 font-[family-name:var(--font-geist-sans)]">
           <CursorComponent/>
           {children}
-          <noscript>Please enable javascript in order to use this website!</noscript>
+          <noscript className="noscript-message">Please enable javascript in order to use this website!</noscript>
         </div>
         <footer>
           <FooterComponent/>
