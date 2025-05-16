@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-spin-slow: spinSlow 7.5s linear infinite;
+
+  @keyframes spinSlow {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
+  } 
+}
+@utility animate-paused {
+  animation-play-state: paused;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #ad46ff;
+  border-radius: 10px;
+}
+/* SCROLLBAR */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+* {
+  cursor: none !important;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
