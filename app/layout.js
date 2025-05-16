@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#ad46ff" />
         <meta property="og:description"  name="twitter:description" itemprop="description" content="xKotelek • Frontend & backend developer." />
         <meta property="og:type" content="website" />
-        <meta property="og:image" name="twitter:image:src" itemprop="image" content="https://kotelek.dev/memoji.png" />
+        <meta property="og:image" name="twitter:image:src" itemprop="image" content="https://kotelek.dev/icon.png" />
         <meta property="og:image:width" content="128" />
         <meta property="og:image:height" content="128" />
         <meta property="og:url" content="https://www.kotelek.dev" />
