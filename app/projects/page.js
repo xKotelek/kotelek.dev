@@ -120,7 +120,7 @@ export default function Projects() {
         <div
           id="projects-grid"
           ref={gridRef}
-          className="grid grid-rows-auto md:grid-rows-2 grid-cols-1 md:grid-cols-2 max-h-90 overflow-y-auto overflow-x-hidden p-5 gap-3"
+          className="grid grid-rows-auto md:grid-rows-2 grid-cols-1 md:grid-cols-2 max-h-120 overflow-y-auto overflow-x-hidden p-5 gap-3"
         >
           {projects.map((project, i) => (
             <div

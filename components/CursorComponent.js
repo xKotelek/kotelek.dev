@@ -12,7 +12,7 @@ export default function CursorComponent() {
   const isClickedRef = useRef(false);
   const isOverProjectsGridRef = useRef(false);
 
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isOverSkills, setIsOverSkills] = useState(false);
   const [isOverLink, setIsOverLink] = useState(false);
   const [isOverProject, setIsOverProject] = useState(false);
@@ -24,10 +24,15 @@ export default function CursorComponent() {
   );
 
   useEffect(() => {
-    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    setIsTouchDevice(isTouch);
+    fetch("/api/isMobile")
+      .then((res) => res.json())
+      .then((data) => {
+        setIsMobile(data?.isMobile);
+      });
+  }, []);
 
-    if (isTouch) return; // nie uruchamiaj logiki na mobilkach
+  useEffect(() => {
+    if (isMobile) return;
 
     const onMouseMove = (e) => {
       targetPos.current = { x: e.clientX, y: e.clientY };
@@ -94,9 +99,9 @@ export default function CursorComponent() {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [isMobile]);
 
-  if (isTouchDevice) return null;
+  if (isMobile) return null;
 
   return (
     <>
