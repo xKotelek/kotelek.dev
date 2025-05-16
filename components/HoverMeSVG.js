@@ -23,7 +23,7 @@ export default function Home() {
     : "HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME •";
 
   const fontSize = isMobile
-    ? "17"
+    ? "16.9"
     : "15.6"
 
   return (
