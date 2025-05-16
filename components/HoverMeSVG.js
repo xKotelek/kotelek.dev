@@ -1,6 +1,23 @@
+"use client";
+import { useEffect, useState } from "react";
+
 export default function HoverMeSVG() {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(isTouch);
+  }, []);
+
+  const text = isTouchDevice
+    ? "CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME •"
+    : "HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME •";
+
   return (
-    <svg viewBox="0 0 300 300" className="absolute w-full h-full duration-800 animate-spin-slow group-hover:animate-paused scale-100 group-hover:scale-0 md:block hidden">
+    <svg
+      viewBox="0 0 300 300"
+      className="absolute w-full h-full duration-800 animate-spin-slow group-hover:animate-paused scale-100 group-hover:scale-0"
+    >
       <defs>
         <path
           id="circlePath"
@@ -10,17 +27,9 @@ export default function HoverMeSVG() {
              a 120,120 0 1,1 -240,0"
         />
       </defs>
-      <text fill="#a855f7" fontSize="13.9" fontWeight="bold">
+      <text fill="#a855f7" fontSize="14.9" fontWeight="bold">
         <textPath href="#circlePath" startOffset="0%">
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
-            HOVER ME •
+          {text}
         </textPath>
       </text>
     </svg>
