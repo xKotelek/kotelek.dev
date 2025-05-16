@@ -137,7 +137,7 @@ export default function Projects() {
               <div>
                 <div className="flex justify-between items-center w-full">
                   <div className="flex items-center gap-2">
-                    <Image src={project.image} width={64} height={64} alt={project.title} />
+                    <Image src={project.image} width={64} height={64} alt={project.title} className="rounded-full" />
                     <span className="font-black text-xl">{project.title}</span>
                   </div>
                   <div className="flex items-center gap-2">
