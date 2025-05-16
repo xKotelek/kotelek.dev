@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import FooterComponent from "@/components/Footer";
 import CursorComponent from "@/components/CursorComponent";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         <div className="select-none w-full h-screen absolute left-0 top-0 font-[family-name:var(--font-geist-sans)]">
           <CursorComponent/>
           {children}

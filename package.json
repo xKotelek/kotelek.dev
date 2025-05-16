@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.5.0",
     "lucide-react": "^0.510.0",
     "mobile-detect": "^1.4.5",
     "next": "15.3.2",
