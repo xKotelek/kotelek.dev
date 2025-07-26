@@ -56,7 +56,7 @@ export default function Home() {
             <Link target="_blank" href="https://youtube.com/@xKotelek" className="group flex justify-center items-center w-16 h-16 rounded-full bg-purple-700/25 hover:bg-purple-700/50 duration-300 border border-purple-700">
               <Image className="group-hover:scale-125 duration-300" src="/icons/social/youtube.svg" width={28} height={28} alt="YouTube"/>
             </Link>
-          </div><br></br>
+          </div><br/>
           <div className={`${showBtns ? "opacity-100 translate-y-0 blur-none" : "opacity-0 -translate-y-12 blur-[8px]"} duration-800 flex gap-2`}>
             <Link className="px-4 py-2 bg-purple-700/25 hover:scale-110 hover:bg-purple-700/50 duration-300 border border-purple-700 rounded-2xl" href="/projects">My Projects</Link>
             <Link className="px-4 py-2 bg-purple-700/25 hover:scale-110 hover:bg-purple-700/50 duration-300 border border-purple-700 rounded-2xl" href="https://status.kotelek.dev" target="_blank">Status</Link>
