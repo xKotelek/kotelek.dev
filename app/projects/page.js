@@ -103,7 +103,7 @@ export default function Projects() {
       description: "is a free bio page maker.",
       href: "https://mbio.kotelek.dev",
       image: "/projects/mbio.png",
-      icons: ["/icons/php.svg", "/icons/js2.svg", "/icons/html.svg", "/icons/css.svg"],
+      icons: ["/icons/nextjs.svg", "/icons/tailwind.svg"],
     },
   ];
 
