@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
-const TRAIL_COUNT = 5;
+const TRAIL_COUNT = 10;
 
 export default function CursorComponent() {
   const cursorRef = useRef(null);
@@ -16,6 +16,8 @@ export default function CursorComponent() {
   const [isOverSkills, setIsOverSkills] = useState(false);
   const [isOverLink, setIsOverLink] = useState(false);
   const [isOverProject, setIsOverProject] = useState(false);
+
+  const arrowWasShown = useRef(false);
 
   const targetPos = useRef({ x: 0, y: 0 });
   const currentPos = useRef({ x: 0, y: 0 });
@@ -44,12 +46,8 @@ export default function CursorComponent() {
       isOverProjectsGridRef.current = !!el?.closest("#projects-grid");
     };
 
-    const handleMouseDown = () => {
-      isClickedRef.current = true;
-    };
-    const handleMouseUp = () => {
-      isClickedRef.current = false;
-    };
+    const handleMouseDown = () => { isClickedRef.current = true; };
+    const handleMouseUp = () => { isClickedRef.current = false; };
 
     const animate = () => {
       const { x: tx, y: ty } = targetPos.current;
@@ -103,9 +101,27 @@ export default function CursorComponent() {
 
   if (isMobile) return null;
 
+  const showArrow = isOverLink;
+  const showPlus = (isOverSkills || isOverProject) && !showArrow;
+
+  if (showArrow) arrowWasShown.current = true;
+
+  const iconIn = "icon-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards";
+  const iconOut = "icon-out 0.22s cubic-bezier(0.55, 0, 1, 0.45) forwards";
+
   return (
     <>
-      {/* Blur glow */}
+      <style>{`
+        @keyframes icon-in {
+          from { transform: translateX(-120%); opacity: 0; }
+          to   { transform: translateX(0%);    opacity: 1; }
+        }
+        @keyframes icon-out {
+          from { transform: translateX(0%);    opacity: 1; }
+          to   { transform: translateX(120%);  opacity: 0; }
+        }
+      `}</style>
+
       <div
         ref={glowRef}
         className="fixed top-0 left-0 z-[0] w-[200px] h-[200px] rounded-full pointer-events-none bg-purple-500/25 backdrop-blur-[6px] blur-2xl transition-opacity duration-300"
@@ -113,11 +129,10 @@ export default function CursorComponent() {
         aria-hidden="true"
       />
 
-      {/* Cursor */}
       <div
         ref={cursorRef}
         className={`fixed pointer-events-none z-[9999] select-none bg-purple-700 duration-150
-          flex items-center justify-center font-bold text-purple-100 leading-none ease-out origin-center
+          flex items-center justify-center font-bold text-purple-100 leading-none ease-out origin-center overflow-hidden
           ${
             isOverSkills || isOverLink || isOverProject
               ? "w-6 h-6 rounded-xl text-xl"
@@ -130,14 +145,52 @@ export default function CursorComponent() {
         }}
         aria-hidden="true"
       >
-        {isOverLink ? (
-          <Image src="/icons/arrow.svg" width={24} height={24} alt="arrow" />
-        ) : isOverSkills || isOverProject ? (
-          <span>+</span>
+        {showArrow ? (
+          <span
+            key="arrow-visible"
+            style={{
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              animation: iconIn,
+              pointerEvents: "none",
+            }}
+          >
+            <Image src="/icons/arrow.svg" width={24} height={24} alt="arrow" />
+          </span>
+        ) : arrowWasShown.current ? (
+          <span
+            key="arrow-hidden"
+            style={{
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              animation: iconOut,
+              pointerEvents: "none",
+            }}
+          >
+            <Image src="/icons/arrow.svg" width={24} height={24} alt="" />
+          </span>
         ) : null}
+
+        <span
+          style={{
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: showPlus ? 1 : 0,
+            transform: showPlus ? "scale(1) rotate(0deg)" : "scale(0.3) rotate(45deg)",
+            transition: "opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+            pointerEvents: "none",
+          }}
+        >
+          <Image src="/icons/plus.svg" width={16} height={16} alt="plus" />
+        </span>
       </div>
 
-      {/* Trail */}
       {Array.from({ length: TRAIL_COUNT }).map((_, i) => (
         <div
           key={i}
