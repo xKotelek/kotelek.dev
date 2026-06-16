@@ -19,6 +19,8 @@ export default function Home() {
     { label: "Next", icon: "/icons/nextjs.svg", x: 85, y: -20, r: 5 },
     { label: "PHP", icon: "/icons/php.svg", x: 95, y: 20, r: 10 },
     { label: "Java", icon: "/icons/java.svg", x: 110, y: 60, r: 10 },
+    { label: "Kotlin", icon: "/icons/kotlin.svg", x: 80, y: -105, r: 0 },
+    { label: "Swift", icon: "/icons/swift.svg", x: -100, y: -95, r: 0 },
   ];
 
   const [showTitle, setShowTitle] = useState(false);
@@ -60,6 +62,7 @@ export default function Home() {
           <div className={`${showBtns ? "opacity-100 translate-y-0 blur-none" : "opacity-0 -translate-y-12 blur-[8px]"} duration-800 flex gap-2`}>
             <Link className="px-4 py-2 bg-purple-700/25 hover:scale-110 hover:bg-purple-700/50 duration-300 border border-purple-700 rounded-2xl" href="/projects">My Projects</Link>
             <Link className="px-4 py-2 bg-purple-700/25 hover:scale-110 hover:bg-purple-700/50 duration-300 border border-purple-700 rounded-2xl" href="https://status.kotelek.dev" target="_blank">Status</Link>
+            <Link className="px-4 py-2 bg-purple-700/25 hover:scale-110 hover:bg-purple-700/50 duration-300 border border-purple-700 rounded-2xl" href="/contact">Contact</Link>
           </div>
           <h3 className={`${showMade ? "opacity-100 translate-y-0 blur-none" : "opacity-0 -translate-y-12 blur-[8px]"} duration-800 mt-2 font-normal text-gray-500`}>
             This website is made in <Link href="https://nextjs.org/" target="_blank" className="text-purple-300 hover:text-purple-400 duration-300">Next.js</Link> v{versions.next} with <Link href="https://tailwindcss.com/" target="_blank" className="text-purple-300 hover:text-purple-400 duration-300">TailwindCSS</Link> v{versions.tailwind}
