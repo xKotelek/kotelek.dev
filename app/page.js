@@ -15,12 +15,12 @@ export default function Home() {
     { label: "CSS", icon: "/icons/css.svg", x: -100, y: -10, r: -5 },
     { label: "Tailwind", icon: "/icons/tailwind.svg", x: -100, y: -50, r: 0 },
     { label: "Python", icon: "/icons/python.svg", x: -115, y: 75, r: -10 },
+    { label: "Swift", icon: "/icons/swift.svg", x: -100, y: -95, r: 0 },
     { label: "JS", icon: "/icons/js.svg", x: 80, y: -60, r: 0 },
+    { label: "Kotlin", icon: "/icons/kotlin.svg", x: 80, y: -105, r: 0 },
     { label: "Next", icon: "/icons/nextjs.svg", x: 85, y: -20, r: 5 },
     { label: "PHP", icon: "/icons/php.svg", x: 95, y: 20, r: 10 },
     { label: "Java", icon: "/icons/java.svg", x: 110, y: 60, r: 10 },
-    { label: "Kotlin", icon: "/icons/kotlin.svg", x: 80, y: -105, r: 0 },
-    { label: "Swift", icon: "/icons/swift.svg", x: -100, y: -95, r: 0 },
   ];
 
   const [showTitle, setShowTitle] = useState(false);
