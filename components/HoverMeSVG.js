@@ -1,35 +1,30 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [isMobile, setIsMobile] = useState(false);
+const HOVER_TEXT =
+  "HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME •";
+const TAP_TEXT =
+  "CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME •";
 
+export default function HoverMeSVG() {
+  const [isTouch, setIsTouch] = useState(false);
+
+  // Media query instead of a fetch to /api/isMobile: resolves synchronously on
+  // mount, so the label never flickers waiting on the network.
   useEffect(() => {
-    async function detectDevice() {
-      try {
-        const res = await fetch("/api/isMobile");
-        const data = await res.json();
-        setIsMobile(data.isMobile);
-      } catch(e) {
-        console.error("Error fetching device type: ", e);
-      }
-    }
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const sync = () => setIsTouch(mq.matches);
 
-    detectDevice();
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
-
-  const text = isMobile
-    ? "CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME •"
-    : "HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME • HOVER ME •";
-
-  const fontSize = isMobile
-    ? "16.9"
-    : "15.6"
 
   return (
     <svg
       viewBox="0 0 300 300"
-      className="absolute w-full h-full duration-800 animate-spin-slow group-hover:animate-paused scale-100 group-hover:scale-0"
+      className="hover-ring absolute w-full h-full animate-spin-slow"
+      aria-hidden="true"
     >
       <defs>
         <path
@@ -40,9 +35,9 @@ export default function Home() {
              a 120,120 0 1,1 -240,0"
         />
       </defs>
-      <text fill="#a855f7" fontSize={fontSize} fontWeight="bold">
+      <text fill="#a855f7" fontSize={isTouch ? "16.9" : "15.6"} fontWeight="bold">
         <textPath href="#circlePath" startOffset="0%">
-          {text}
+          {isTouch ? TAP_TEXT : HOVER_TEXT}
         </textPath>
       </text>
     </svg>
