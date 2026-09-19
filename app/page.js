@@ -19,15 +19,13 @@ const LINKS = [
   { href: "/contact", label: "Contact", external: false },
 ];
 
-// Server component: the reveal animations are pure CSS, so nothing here needs
-// to hydrate and the entrance starts on the first painted frame.
 export default function Home() {
   const versions = getVersions();
 
   return (
-    <div className="w-full h-dvh flex justify-center items-center bg-[var(--background)] text-[var(--foreground)] overflow-hidden">
-      <div className="flex flex-col md:flex-row items-center gap-16">
-        <div className="font-bold">
+    <div className="w-full min-h-dvh flex justify-center items-center bg-[var(--background)] text-[var(--foreground)] px-5 py-12">
+      <div className="flex w-full max-w-5xl flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
+        <div className="font-bold min-w-0">
           <div className="reveal">
             <h1 className="text-4xl text-left">
               Hi, I&apos;m <span className="title font-black text-purple-500">xKotelek</span>
@@ -92,7 +90,7 @@ export default function Home() {
           </h3>
         </div>
 
-        <div className="reveal" style={{ "--d": "180ms" }}>
+        <div className="reveal shrink-0 max-w-full" style={{ "--d": "180ms" }}>
           <SkillsOrbit />
         </div>
       </div>

@@ -1,20 +1,23 @@
 import Image from "next/image";
 
-// Position, rotation and stagger are handed to CSS as custom properties, so the
-// open/close animation is driven entirely by the container's data-open state.
-export default function FloatingSkill({ label, icon, x, y, r, delay }) {
+// Separate rotation from the reveal so labels remain upright throughout orbit.
+export default function FloatingSkill({ label, icon, angle, delay }) {
   return (
-    <div
-      className="skill-chip flex items-center gap-1 text-sm font-semibold bg-purple-100 text-purple-700 px-3 py-1 rounded-full shadow-md whitespace-nowrap"
+    <li
+      className="skill-orbit"
       style={{
-        "--x": `${x}px`,
-        "--y": `${y}px`,
-        "--r": `${r}deg`,
+        "--angle": `${angle}deg`,
         "--d": `${delay}ms`,
       }}
     >
-      {icon && <Image src={icon} width={16} height={16} alt="" />}
-      <span>{label}</span>
-    </div>
+      <div className="skill-position">
+        <div className="skill-counter-spin">
+          <div className="skill-chip">
+            <Image src={icon} width={16} height={16} alt="" />
+            <span>{label}</span>
+          </div>
+        </div>
+      </div>
+    </li>
   );
 }

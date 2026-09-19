@@ -1,22 +1,15 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import useMediaQuery from "@/components/useMediaQuery";
 
 const TRAIL_COUNT = 22;
 const TRAIL_EASE = 0.35;
-// Hard cap on the gap between two links. A plain lerp chain settles at a gap of
-// v*dt*(1-k)/k, which at speed is far wider than a dot — that is what made the
-// trail read as separate dots instead of one line. Clamping the segment length
-// keeps every dot overlapping its neighbour no matter how fast the pointer moves.
 const TRAIL_HEAD_SIZE = 13;
 const TRAIL_TAIL_SIZE = 3;
-// Each link's cap is a fraction of its own dot, so a thin tail dot sits closer
-// to its neighbour than a fat head one. A single shared cap would leave gaps at
-// the tail, where the dots are too small to bridge it.
+// Scale segment lengths with dot size to keep the trail connected.
 const TRAIL_OVERLAP = 0.7;
 const FRAME = 1000 / 60;
 
-// Size, blur and link length depend only on the dot's index, so they are
-// computed once at module load rather than per frame.
 const TRAIL_DOTS = Array.from({ length: TRAIL_COUNT }, (_, i) => {
   const t = TRAIL_COUNT > 1 ? i / (TRAIL_COUNT - 1) : 0;
   const size = TRAIL_HEAD_SIZE - (TRAIL_HEAD_SIZE - TRAIL_TAIL_SIZE) * Math.pow(t, 0.85);
@@ -36,30 +29,19 @@ const LINK_SELECTOR = "a, button, [data-cursor='link']";
 const SOFT_SELECTOR = ".skills, .project";
 
 export default function CursorComponent() {
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useMediaQuery(
+    "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
+  );
 
   const cursorRef = useRef(null);
   const glowRef = useRef(null);
   const trailsRef = useRef(null);
   const trailRefs = useRef([]);
 
-  // Device capability instead of a network round-trip to /api/isMobile.
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const sync = () => setEnabled(mq.matches);
-
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
   useEffect(() => {
     if (!enabled) return;
 
     const root = document.documentElement;
-    root.dataset.cursor = "on";
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const current = { ...target };
@@ -80,10 +62,9 @@ export default function CursorComponent() {
       const dy = target.y - current.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // Same easing curve as before, but corrected for the real frame time so a
-      // 120Hz Mac and a 60Hz display travel at identical speed.
+      // Normalize easing across display refresh rates.
       const speed = 0.2 + Math.min(distance / 150, 0.4);
-      const k = reduced ? 1 : 1 - Math.pow(1 - speed, frames);
+      const k = 1 - Math.pow(1 - speed, frames);
       current.x += dx * k;
       current.y += dy * k;
 
@@ -91,18 +72,15 @@ export default function CursorComponent() {
       if (cursorRef.current) cursorRef.current.style.transform = head;
       if (glowRef.current) glowRef.current.style.transform = head;
 
-      const kt = reduced ? 1 : 1 - Math.pow(1 - TRAIL_EASE, frames);
+      const kt = 1 - Math.pow(1 - TRAIL_EASE, frames);
       let prev = current;
       for (let i = 0; i < TRAIL_COUNT; i++) {
         const pos = trail[i];
 
-        // Ease toward the previous link, so the trail retracts into the cursor
-        // once the pointer stops instead of leaving a worm lying on screen...
         pos.x += (prev.x - pos.x) * kt;
         pos.y += (prev.y - pos.y) * kt;
 
-        // ...then clamp the link length, so the line can never pull apart into
-        // separate dots however fast the pointer is thrown around.
+        // Clamp gaps during fast pointer movements.
         const lx = pos.x - prev.x;
         const ly = pos.y - prev.y;
         const gap = Math.sqrt(lx * lx + ly * ly);
@@ -125,7 +103,6 @@ export default function CursorComponent() {
         Math.abs(target.x - tail.x) < 0.1 &&
         Math.abs(target.y - tail.y) < 0.1;
 
-      // Park the loop once everything has caught up — idle CPU drops to zero.
       if (settled) {
         raf = 0;
         last = 0;
@@ -141,6 +118,8 @@ export default function CursorComponent() {
     };
 
     const setVisible = (value) => {
+      if (value) root.dataset.cursor = "on";
+      else delete root.dataset.cursor;
       const flag = String(value);
       cursorRef.current?.setAttribute("data-visible", flag);
       trailsRef.current?.setAttribute("data-visible", flag);
@@ -163,9 +142,6 @@ export default function CursorComponent() {
       wake();
     };
 
-    // pointerover only fires when the element under the pointer changes, so
-    // hover detection costs nothing while the pointer moves within one element.
-    // The old code ran document.elementFromPoint() on every mousemove instead.
     const onOver = (e) => {
       const el = e.target instanceof Element ? e.target : null;
 
@@ -231,8 +207,6 @@ export default function CursorComponent() {
 
   if (!enabled) return null;
 
-  // Rendered once and then never re-rendered — every visual state change after
-  // mount goes through data-attributes and CSS.
   return (
     <>
       <div ref={glowRef} className="cursor-glow" data-glow="false" aria-hidden="true" />

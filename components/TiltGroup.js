@@ -1,21 +1,20 @@
 "use client";
 import { useEffect, useRef } from "react";
+import useMediaQuery from "@/components/useMediaQuery";
 
 const FRAME = 1000 / 60;
 const TILT_EASE = 0.14;
 const MAX_TILT = 8;
 
-// Applies a shared parallax tilt to every [data-tilt] descendant. The pointer
-// handler only records a target; a single rAF loop eases toward it and parks
-// itself once it arrives, so nothing writes layout on the input thread.
 export default function TiltGroup({ children, ...props }) {
   const hostRef = useRef(null);
+  const enabled = useMediaQuery(
+    "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
+  );
 
   useEffect(() => {
     const host = hostRef.current;
-    if (!host) return;
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!host || !enabled) return;
 
     const cards = Array.from(host.querySelectorAll("[data-tilt]"));
     if (!cards.length) return;
@@ -61,8 +60,7 @@ export default function TiltGroup({ children, ...props }) {
     };
 
     const onMove = (e) => {
-      // getBoundingClientRect is cached; reading it per pointermove forces a
-      // synchronous layout on every single event.
+      // Reuse bounds until a scroll or resize invalidates them.
       if (!rect) rect = host.getBoundingClientRect();
 
       const px = (e.clientX - rect.left) / rect.width - 0.5;
@@ -96,8 +94,9 @@ export default function TiltGroup({ children, ...props }) {
       host.removeEventListener("pointerleave", onLeave);
       window.removeEventListener("resize", invalidate);
       window.removeEventListener("scroll", invalidate);
+      for (const card of cards) card.style.removeProperty("transform");
     };
-  }, []);
+  }, [enabled]);
 
   return (
     <div ref={hostRef} {...props}>
