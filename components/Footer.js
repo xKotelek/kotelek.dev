@@ -1,5 +1,3 @@
-// No state, no timers: the entrance is a CSS animation, so this stays a server
-// component and ships zero JavaScript.
 export default function FooterComponent() {
   return (
     <div

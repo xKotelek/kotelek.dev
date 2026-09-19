@@ -187,8 +187,7 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* The reveal lives on a wrapper: `animation-fill-mode: both` keeps
-            `transform: none` applied, which would otherwise beat hover:scale. */}
+        {/* Keep the reveal transform separate from the link's hover scale. */}
         <div className="reveal" style={{ "--d": "860ms" }}>
           <Link
             href="/"

@@ -37,8 +37,6 @@ export const metadata = {
   },
 };
 
-// color-scheme up front stops the browser painting a white frame before the
-// stylesheet applies.
 export const viewport = {
   themeColor: "#8200db",
   colorScheme: "dark",

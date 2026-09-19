@@ -6,11 +6,9 @@ const HOVER_TEXT =
 const TAP_TEXT =
   "CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME • CLICK ME •";
 
-export default function HoverMeSVG() {
+export default function HoverMeSVG({ staticLabel = false }) {
   const [isTouch, setIsTouch] = useState(false);
 
-  // Media query instead of a fetch to /api/isMobile: resolves synchronously on
-  // mount, so the label never flickers waiting on the network.
   useEffect(() => {
     const mq = window.matchMedia("(hover: none), (pointer: coarse)");
     const sync = () => setIsTouch(mq.matches);
@@ -35,9 +33,26 @@ export default function HoverMeSVG() {
              a 120,120 0 1,1 -240,0"
         />
       </defs>
-      <text fill="#a855f7" fontSize={isTouch ? "16.9" : "15.6"} fontWeight="bold">
+      <text
+        className="hover-ring-label"
+        data-active={!staticLabel}
+        fill="#a855f7"
+        fontSize={isTouch ? "16.9" : "15.6"}
+        fontWeight="bold"
+      >
         <textPath href="#circlePath" startOffset="0%">
           {isTouch ? TAP_TEXT : HOVER_TEXT}
+        </textPath>
+      </text>
+      <text
+        className="hover-ring-label"
+        data-active={staticLabel}
+        fill="#a855f7"
+        fontSize={isTouch ? "16.9" : "15.6"}
+        fontWeight="bold"
+      >
+        <textPath href="#circlePath" startOffset="0%">
+          {"MY SKILLS • ".repeat(9)}
         </textPath>
       </text>
     </svg>

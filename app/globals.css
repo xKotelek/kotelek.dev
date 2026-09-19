@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --animate-spin-slow: spinSlow 7.5s linear infinite;
+  --animate-spin-slow: spinSlow 50s linear infinite;
   --animate-check-pop: checkPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @keyframes spinSlow {
@@ -37,7 +37,6 @@
   --brand: #a855f7;
   --brand-deep: #7e22ce;
 
-  /* one shared motion vocabulary so every animation on the site feels related */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-soft: cubic-bezier(0.55, 0, 1, 0.45);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -56,7 +55,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* SCROLLBAR */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -71,9 +70,7 @@ body {
   scrollbar-color: #ad46ff transparent;
   scrollbar-width: thin;
 }
-/* SCROLLBAR */
 
-/* CENTER NOSCRIPT */
 .noscript-message {
   position: fixed;
   top: 50%;
@@ -90,20 +87,16 @@ body {
   max-width: 90%;
   box-shadow: 0 0 10px #ad46ff50;
 }
-/* CENTER NOSCRIPT */
 
-/* The native cursor is only hidden once the custom one is actually mounted and
-   running, so no-JS / touch / reduced-motion visitors never lose their pointer. */
-html[data-cursor="on"],
-html[data-cursor="on"] * {
-  cursor: none !important;
+/* Hide the native pointer only while the custom cursor is active. */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  html[data-cursor="on"],
+  html[data-cursor="on"] * {
+    cursor: none !important;
+  }
 }
 
-/* ---------------------------------------------------------------
-   Entrance reveals — pure CSS so they start at first paint instead
-   of waiting on hydration + a chain of setTimeouts. Stagger with
-   `style={{ "--d": "200ms" }}`, direction with --reveal-x/--reveal-y.
-   --------------------------------------------------------------- */
+/* Entrance animation */
 @keyframes reveal {
   from {
     opacity: 0;
@@ -131,20 +124,13 @@ html[data-cursor="on"] * {
     animation: reveal var(--reveal-duration) var(--ease-out-soft) var(--d, 0ms) both;
   }
 
-  /* ---------------------------------------------------------------
-     Custom cursor. The rAF loop writes ONLY a translate3d to each
-     layer; every size / scale / colour change lives on a static inner
-     element, so transitions and the animation loop never fight over
-     the same property.
-     --------------------------------------------------------------- */
+  /* Cursor movement and shape changes use separate elements. */
   .cursor-glow,
   .cursor-trails,
   .cursor-layer {
     pointer-events: none;
   }
 
-  /* purple-500/25 + blur-2xl, exactly as before — but no backdrop-filter,
-     which was re-sampling the page behind it on every single frame. */
   .cursor-glow {
     position: fixed;
     top: 0;
@@ -164,8 +150,7 @@ html[data-cursor="on"] * {
     opacity: 1;
   }
 
-  /* Opacity lives on the wrapper, not the individual dots: overlapping
-     translucent dots used to stack into visible beads along the trail. */
+  /* Apply opacity to the whole trail to avoid dark overlaps between dots. */
   .cursor-trails {
     position: fixed;
     inset: 0;
@@ -176,8 +161,6 @@ html[data-cursor="on"] * {
   .cursor-trails[data-visible="false"] {
     opacity: 0;
   }
-  /* Per-dot size, margin and blur are set inline — they only depend on the
-     dot's index, so they are written once at mount and never per frame. */
   .cursor-trail {
     position: absolute;
     top: 0;
@@ -185,8 +168,6 @@ html[data-cursor="on"] * {
     border-radius: 9999px;
     background: #a855f7;
     will-change: transform;
-    /* Restarted every frame this behaves as a second smoothing pass — it is
-       what gives the trail its softness, so it stays. */
     transition: transform 0.1s ease-out;
   }
 
@@ -240,8 +221,6 @@ html[data-cursor="on"] * {
     justify-content: center;
   }
 
-  /* data-icon is only flipped when the pointer actually enters or leaves a
-     link, which reproduces the original arrowWasShown slide-in / slide-out. */
   .cursor-icon-arrow {
     opacity: 0;
   }
@@ -262,62 +241,150 @@ html[data-cursor="on"] * {
     transform: scale(1) rotate(0deg);
   }
 
-  /* ---------------------------------------------------------------
-     Skills orbit — driven by one data-attribute on the container so
-     hover and touch share a single code path and React only renders
-     when the orbit actually opens or closes.
-     --------------------------------------------------------------- */
+  /* Skills orbit */
+  .skills {
+    --orbit-radius: clamp(110px, calc((100vw - 80px) / 2), 124px);
+    position: relative;
+    width: min(340px, calc(100vw - 40px));
+    height: 320px;
+  }
+  .skills-toggle {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    inset: 0;
+    margin: auto;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .skills-toggle:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 6px;
+  }
+  .skills-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 11%;
+    border-radius: 50%;
+    background: var(--background);
+  }
   .skills .hover-ring {
-    transition: transform 800ms var(--ease-out-soft);
+    inset: 0;
+    transition: opacity 400ms ease;
+  }
+  .hover-ring-label {
+    opacity: 0;
+    transform: scale(0.88);
+    transform-box: view-box;
+    transform-origin: center;
+    filter: blur(2px);
+    transition: opacity 140ms ease, transform 180ms ease, filter 140ms ease;
+  }
+  .hover-ring-label[data-active="true"] {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    transition: opacity 220ms ease, transform 320ms var(--ease-spring), filter 220ms ease;
+    transition-delay: 140ms;
   }
   .skills .memoji-wrap {
-    transition: transform 300ms var(--ease-out-soft);
+    transform: scale(0.78);
+    transition: transform 500ms var(--ease-spring);
   }
-  .skills[data-open="true"] .hover-ring {
-    transform: scale(0);
-    animation-play-state: paused;
-  }
-  .skills[data-open="true"] .memoji-wrap {
-    transform: scale(1.1);
-  }
-
-  .skill-chip {
+  .skills[data-open="true"] .hover-ring { opacity: 0.65; }
+  .skills[data-open="true"] .memoji-wrap { transform: scale(0.86); }
+  .skills-list { list-style: none; margin: 0; padding: 0; }
+  .skill-orbit {
     position: absolute;
     left: 50%;
     top: 50%;
-    opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(-50%, -50%, 0) scale(0.5);
-    transition: transform 600ms var(--ease-out-soft), opacity 600ms var(--ease-out-soft),
-      filter 600ms var(--ease-out-soft);
-    transition-delay: 0ms;
+    width: 0;
+    height: 0;
+    transform: rotate(var(--angle));
+    animation: skill-orbit 100s linear infinite paused;
+    pointer-events: none;
   }
-  .skills[data-open="true"] .skill-chip {
-    opacity: 1;
-    filter: none;
-    transform: translate3d(calc(-50% + var(--x)), calc(-50% + var(--y)), 0)
-      rotate(var(--r)) scale(1);
+  .skill-position {
+    transform: translateX(0);
+    transition: transform 550ms var(--ease-out-soft);
+  }
+  .skills[data-open="true"] .skill-position {
+    transform: translateX(var(--orbit-radius));
     transition-delay: var(--d, 0ms);
   }
+  .skill-counter-spin {
+    transform: rotate(calc(-1 * var(--angle)));
+    animation: skill-counter-spin 100s linear infinite paused;
+  }
+  .skill-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: max-content;
+    padding: 3px;
+    border: 1px solid rgb(168 85 247 / 0.3);
+    border-radius: 999px;
+    background: #f3e8ff;
+    color: #7e22ce;
+    box-shadow: 0 4px 18px rgb(126 34 206 / 0.12);
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+    transition: transform 450ms var(--ease-spring), opacity 250ms ease;
+    transition-delay: 0ms;
+  }
+  .skill-chip img { width: 10px; height: 10px; }
+  .skills[data-open="true"] .skill-chip {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition-delay: var(--d, 0ms);
+  }
+  .skills[data-open="true"] .skill-orbit,
+  .skills[data-open="true"] .skill-counter-spin { animation-play-state: running; }
 
-  /* ---------------------------------------------------------------
-     Project cards — the tilt lives on an inner element with no
-     transition, so the rAF loop owns `transform` outright and the
-     entrance animation on the wrapper is never interrupted.
-     --------------------------------------------------------------- */
+  @media (min-width: 640px) {
+    .skills { --orbit-radius: 168px; width: 440px; height: 390px; }
+    .skills-toggle { width: 256px; height: 256px; }
+    .skill-chip { flex-direction: row; font-size: 11px; padding: 4px 6px; gap: 4px; }
+    .skill-chip img { width: 14px; height: 14px; }
+  }
+
+  /* The inner card owns tilt; its wrapper owns the entrance animation. */
   .tilt {
     will-change: transform;
     transform: perspective(1000px);
   }
 }
 
+@keyframes skill-orbit {
+  from { transform: rotate(var(--angle)); }
+  to { transform: rotate(calc(var(--angle) + 360deg)); }
+}
+@keyframes skill-counter-spin {
+  from { transform: rotate(calc(-1 * var(--angle))); }
+  to { transform: rotate(calc(-1 * var(--angle) - 360deg)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
+  .cursor-layer, .cursor-trails, .cursor-glow { display: none !important; }
+  .reveal { opacity: 1; transform: none; filter: none; }
+  .tilt { transform: none !important; will-change: auto; }
+  a:hover, .group:hover img { scale: none !important; }
+  .skills-toggle { cursor: default; }
+  .skills .hover-ring { opacity: 1; }
+  .skills .memoji-wrap { transform: scale(0.78); }
+  .skill-position { transform: translateX(var(--orbit-radius)); }
+  .skill-chip { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
