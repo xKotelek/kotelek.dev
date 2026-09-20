@@ -41,7 +41,12 @@ const PROJECTS = [
     description: "is a free bio page maker.",
     href: "https://mbio.kotelek.dev",
     image: "/projects/mbio.png",
-    icons: ["/icons/nextjs.svg", "/icons/tailwind.svg"],
+    icons: [
+      "/icons/nextjs.svg", 
+      "/icons/tailwind.svg",
+      "/icons/prisma.svg",
+      "/icons/postgresql.svg",
+    ],
   },
 ];
 
