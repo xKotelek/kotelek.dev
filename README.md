@@ -88,6 +88,8 @@ app/
   projects/page.js      Project showcase
   contact/page.js       Contact form
   api/contact/route.js  SMTP email endpoint
+  api/isMobile/route.js Device detection endpoint
+  not-found.js          404 page
   layout.js             Shared layout, fonts, metadata, and analytics
   globals.css           Theme, animations, and reduced-motion styles
 components/             Skills orbit, cursor, tilt effects, and shared UI
