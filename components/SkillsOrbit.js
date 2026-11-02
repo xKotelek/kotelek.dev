@@ -41,6 +41,7 @@ export default function SkillsOrbit() {
       <button
         type="button"
         className="skills-toggle"
+        data-cursor="soft"
         aria-label={reduced ? "My skills" : "Toggle skills orbit"}
         aria-expanded={open}
         aria-controls="skills-list"

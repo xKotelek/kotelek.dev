@@ -4,6 +4,8 @@ import useMediaQuery from "@/components/useMediaQuery";
 
 const TRAIL_COUNT = 22;
 const TRAIL_EASE = 0.35;
+const ICON_EASE = 0.16;
+const RAD2DEG = 180 / Math.PI;
 const TRAIL_HEAD_SIZE = 13;
 const TRAIL_TAIL_SIZE = 3;
 // Scale segment lengths with dot size to keep the trail connected.
@@ -27,6 +29,7 @@ const TRAIL_DOTS = Array.from({ length: TRAIL_COUNT }, (_, i) => {
 
 const LINK_SELECTOR = "a, button, [data-cursor='link']";
 const SOFT_SELECTOR = ".skills, .project";
+const SOFT_ATTR_SELECTOR = "[data-cursor='soft']";
 
 export default function CursorComponent() {
   const enabled = useMediaQuery(
@@ -52,6 +55,7 @@ export default function CursorComponent() {
     let primed = false;
     let mode = "default";
     let glowOn = false;
+    let iconAngle = 0;
 
     const step = (now) => {
       const dt = last ? Math.min(now - last, 80) : FRAME;
@@ -67,6 +71,15 @@ export default function CursorComponent() {
       const k = 1 - Math.pow(1 - speed, frames);
       current.x += dx * k;
       current.y += dy * k;
+
+      // Point the cursor icon toward movement direction.
+      if (distance > 0.5) {
+        const targetAngle = Math.atan2(dy, dx) * RAD2DEG;
+        let delta = targetAngle - iconAngle;
+        delta = (((delta % 360) + 540) % 360) - 180;
+        iconAngle += delta * (1 - Math.pow(1 - ICON_EASE, frames));
+        cursorRef.current?.style.setProperty("--cursor-angle", `${iconAngle.toFixed(1)}deg`);
+      }
 
       const head = `translate3d(${current.x}px, ${current.y}px, 0)`;
       if (cursorRef.current) cursorRef.current.style.transform = head;
@@ -147,6 +160,8 @@ export default function CursorComponent() {
 
       const nextMode = !el
         ? "default"
+        : el.closest(SOFT_ATTR_SELECTOR)
+        ? "soft"
         : el.closest(LINK_SELECTOR)
         ? "link"
         : el.closest(SOFT_SELECTOR)

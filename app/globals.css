@@ -219,6 +219,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    rotate: var(--cursor-angle, 0deg);
   }
 
   .cursor-icon-arrow {
